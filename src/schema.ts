@@ -4,7 +4,7 @@ import {
 	Schema,
 } from '@data-driven-forms/react-form-renderer'
 
-interface ExtendedSchema extends Schema {
+export interface ExtendedSchema extends Schema {
 	fields: (Field & {
 		type?: 'submit' | 'password' | 'number'
 	})[]
@@ -53,6 +53,21 @@ export const schema: ExtendedSchema = {
 		},
 		{
 			component: componentTypes.TEXT_FIELD,
+			name: 'password',
+			label: 'Enter Password',
+			isRequired: true,
+			validate: [
+				(value: string) => {
+					if (!value) {
+						return 'Required'
+					}
+					return undefined
+				},
+			],
+			type: 'password',
+		},
+		{
+			component: componentTypes.TEXT_FIELD,
 			name: 'age',
 			label: 'Your age',
 			type: 'number',
@@ -68,12 +83,17 @@ export const schema: ExtendedSchema = {
 				},
 			],
 		},
-
-		// {
-		// 	component: 'custom-component-type',
-		// 	name: 'password',
-		// 	label: 'Your password',
-		// 	type: 'password',
-		// },
+		{
+			component: componentTypes.CHECKBOX,
+			name: 'terms',
+			label: 'I agree to the terms and conditions',
+			validate: [
+				{
+					type: 'required',
+					message: 'You must agree to the terms and conditions',
+				},
+			],
+			initialValue: false,
+		},
 	],
 }

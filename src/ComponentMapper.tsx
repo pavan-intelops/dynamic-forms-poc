@@ -5,11 +5,12 @@ import {
 import componentTypes from '@data-driven-forms/react-form-renderer/component-types'
 import FormRenderer from '@data-driven-forms/react-form-renderer/form-renderer'
 import useFormApi from '@data-driven-forms/react-form-renderer/use-form-api'
+import { Button } from '@mantine/core'
 import { useState } from 'react'
 import MantineButton from './mapped-components/MantineButton'
-import MantineTextInput from './mapped-components/MantineTextInput'
+import MantineTextInputFactory from './mapped-components/MantineTextInputFactory'
 import { schema } from './schema'
-import { Button } from '@mantine/core'
+import MantineCheckbox from './mapped-components/MantineCheckbox'
 
 const FormTemplate = ({ formFields }: FormTemplateRenderProps) => {
 	const { handleSubmit, onCancel } = useFormApi()
@@ -17,6 +18,7 @@ const FormTemplate = ({ formFields }: FormTemplateRenderProps) => {
 		<form
 			onSubmit={(event) => {
 				event.preventDefault()
+
 				handleSubmit()
 			}}
 		>
@@ -32,8 +34,9 @@ const FormTemplate = ({ formFields }: FormTemplateRenderProps) => {
 }
 
 const componentMapper: ComponentMapper = {
-	[componentTypes.TEXT_FIELD]: MantineTextInput,
+	[componentTypes.TEXT_FIELD]: MantineTextInputFactory,
 	[componentTypes.BUTTON]: MantineButton,
+	[componentTypes.CHECKBOX]: MantineCheckbox,
 }
 const ComponentMapper = () => {
 	const [values, setValues] = useState({})
